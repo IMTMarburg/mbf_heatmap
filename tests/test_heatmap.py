@@ -1,5 +1,4 @@
 import pytest
-import pypipegraph as ppg
 import numpy as np
 import pandas as pd
 from mbf_genomics import DelayedDataFrame
@@ -43,8 +42,11 @@ class TestComplete:
         ddf = DelayedDataFrame("test", df)
         of = "test.png"
         h = HeatmapPlot(
-            ddf, df.columns, of, heatmap_norm.Unchanged(), heatmap_order.HierarchicalPearson ()
+            ddf,
+            df.columns,
+            of,
+            heatmap_norm.Unchanged(),
+            heatmap_order.HierarchicalPearson(),
         )
         run_pipegraph()
         assert_image_equal(h.output_filename)
-

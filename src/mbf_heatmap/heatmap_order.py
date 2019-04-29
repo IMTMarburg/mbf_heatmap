@@ -35,7 +35,8 @@ class HierarchicalPearson(OrderStrategy):
         return []
 
 
-if False:
+if False: # noqa
+    from chipseq import _apply_tpm, pd, _HeatmapPlot
 
     class OrderAsIs:
         """Take the order as it was in gr_to_draw"""

@@ -18,7 +18,6 @@ You need to decide and pass in appropriate strategies:
 """
 import pypipegraph as ppg
 from mbf_genomics.util import parse_a_or_c
-from pathlib import Path
 from . import plot_strategies, heatmap_norm, heatmap_order
 from mbf_genomics import DelayedDataFrame
 from mbf_genomics.util import freeze
@@ -66,7 +65,7 @@ class HeatmapPlot:
         def plot():
             p = self.plot_strategy.plot(ordered.df, names, self.plot_options)
             self.plot_strategy.render(str(self.output_filename), p)
-            
+
         if ppg.inside_ppg():
             ppg.util.global_pipegraph.quiet = False
             deps = [
@@ -87,7 +86,6 @@ class HeatmapPlot:
         else:
             plot()
             return self.output_filename
-
 
     def normed_ddf(self, input_ddf):
         def load():

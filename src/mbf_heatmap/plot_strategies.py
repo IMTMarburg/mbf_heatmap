@@ -1,5 +1,4 @@
 import math
-import pandas as pd
 
 
 class Plot_Matplotlib:
@@ -29,9 +28,9 @@ class Plot_Matplotlib:
         else:
             color_scale = plot_options["color_scale"]
         fig = plt.figure(figsize=(plot_width, plot_height))
-        title = plot_options.get("title", True)
-        if plot_options.get("title"):
-            plt.suptitle(plot_options.get("title"))
+        title = plot_options.get("title", '')
+        if title:
+            plt.suptitle(title)
         for ii, column in enumerate(df.columns):
             ax = fig.add_subplot(
                 1, col_count + 1, ii + 1

@@ -5,12 +5,11 @@
 import sys
 from pathlib import Path
 
-from pypipegraph.testing.fixtures import (
-    new_pipegraph,
+from pypipegraph.testing.fixtures import (  # noqa:F401
     pytest_runtest_makereport,
     new_pipegraph,
     both_ppg_and_no_ppg,
-)  # noqa:F401
+)
 from mbf_qualitycontrol.testing.fixtures import (  # noqa:F401
     new_pipegraph_no_qc,
     both_ppg_and_no_ppg_no_qc,
