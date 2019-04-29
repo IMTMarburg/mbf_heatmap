@@ -130,7 +130,6 @@ class HeatmapPlot:
         )
 
     def handle_names(self):
-        print("input names %s" % repr(self.names))
         if self.names is None:
             names = [
                 getattr(ac[0], "plot_name", ac[1]) if ac[0] is not None else ac[1]
