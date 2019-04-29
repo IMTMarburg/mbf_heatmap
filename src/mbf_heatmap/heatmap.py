@@ -94,18 +94,19 @@ class HeatmapPlot:
                 df, [ac[1] for ac in self.columns]
             )
             return normed_df
-
+        output_name = input_ddf.name + "_heatmap_" + self.normalization_strategy.name
         if ppg.inside_ppg():
             deps = [
                 self.ddf.add_annotator(ac[0])
                 for ac in self.columns
                 if ac[0] is not None
-            ] + [self.normalization_strategy.deps(), input_ddf.load()]
+            ] + [self.normalization_strategy.deps(), input_ddf.load(),
+                 ppg.FunctionInvariant(output_name + '_calc', self.normalization_strategy.calc)]
         else:
             deps = []
 
         return DelayedDataFrame(
-            input_ddf.name + "_heatmap_" + self.normalization_strategy.name,
+            output_name,
             load,
             deps,
             input_ddf.result_dir,
@@ -115,18 +116,19 @@ class HeatmapPlot:
         def load():
             df = input_ddf.df[[ac[1] for ac in self.columns]]
             return self.order_strategy.calc(df, [ac[1] for ac in self.columns])
-
+        output_name = input_ddf.name + self.order_strategy.name
         if ppg.inside_ppg():
             deps = [
                 self.ddf.add_annotator(ac[0])
                 for ac in self.columns
                 if ac[0] is not None
-            ] + [self.order_strategy.deps(), input_ddf.load()]
+            ] + [self.order_strategy.deps(), input_ddf.load(),
+                 ppg.FunctionInvariant(output_name + '_calc', self.order_strategy.calc)]
         else:
             deps = []
 
         return DelayedDataFrame(
-            input_ddf.name + self.order_strategy.name, load, deps, input_ddf.result_dir
+            output_name, load, deps, input_ddf.result_dir
         )
 
     def handle_names(self):
