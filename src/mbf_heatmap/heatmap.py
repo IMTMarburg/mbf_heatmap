@@ -26,15 +26,22 @@ from mbf_genomics.util import freeze
 class HeatmapPlot:
     def __init__(
         self,
-        ddf,
+        ddf: DelayedDataFrame,
         columns,
         output_filename,
-        normalization_strategy,
-        order_strategy,
+        normalization_strategy: heatmap_norm.NormStrategy,
+        order_strategy: heatmap_order.OrderStrategy,
         names=None,
         plot_options={},
     ):
-        """plot_options:
+        """
+        ddf: The genomir regions you want to plot with a minimum of chr, start, stop, columns
+        columns: The columns from ddf to plot, in order.
+        output_filename: a path to store the heatmap in
+        normalization_strategy: the normalization strategy to apply,  see heatmap_norm
+        order_strategy: how to order the rows from the ddf, see heatmap_order
+
+        plot_options:
 
             show_cluster_ids - whether to show cluster ids as little colored dots at the left hand side
         """
