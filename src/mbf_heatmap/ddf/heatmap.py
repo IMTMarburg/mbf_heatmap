@@ -18,7 +18,8 @@ You need to decide and pass in appropriate strategies:
 """
 import pypipegraph as ppg
 from mbf_genomics.util import parse_a_or_c
-from . import plot_strategies, heatmap_norm, heatmap_order
+from .. import plot_strategies
+from . import norm, order
 from mbf_genomics import DelayedDataFrame
 from mbf_genomics.util import freeze
 
@@ -29,8 +30,8 @@ class HeatmapPlot:
         ddf: DelayedDataFrame,
         columns,
         output_filename,
-        normalization_strategy: heatmap_norm.NormStrategy,
-        order_strategy: heatmap_order.OrderStrategy,
+        normalization_strategy: norm.NormStrategy,
+        order_strategy: order.OrderStrategy,
         names=None,
         plot_options={},
     ):
@@ -38,7 +39,7 @@ class HeatmapPlot:
         ddf: The genomir regions you want to plot with a minimum of chr, start, stop, columns
         columns: The columns from ddf to plot, in order.
         output_filename: a path to store the heatmap in
-        normalization_strategy: the normalization strategy to apply,  see heatmap_norm
+        normalization_strategy: the normalization strategy to apply,  see heatmap.norm
         order_strategy: how to order the rows from the ddf, see heatmap_order
 
         plot_options:
@@ -48,14 +49,14 @@ class HeatmapPlot:
         self.ddf = ddf
         self.columns = [parse_a_or_c(x) for x in columns]
         self.output_filename = ddf.pathify(output_filename)
-        if not isinstance(normalization_strategy, heatmap_norm.NormStrategy):
+        if not isinstance(normalization_strategy, norm.NormStrategy):
             raise ValueError(
-                "normalization_strategy must be a heatmap_norm.NormStrategy descendend"
+                "normalization_strategy must be a heatmap.norm.NormStrategy descendend"
             )
         self.normalization_strategy = normalization_strategy
-        if not isinstance(order_strategy, heatmap_order.OrderStrategy):
+        if not isinstance(order_strategy, order.OrderStrategy):
             raise ValueError(
-                "order_strategy must be a heatmap_norm.NormStrategy descendend"
+                "order_strategy must be a heatmap.norm.NormStrategy descendend"
             )
 
         self.order_strategy = order_strategy

@@ -1,5 +1,4 @@
 # mbf_heatmap
 
 
-heatmap from DelayedDataframes
-or chipseq lanes.
+Heatmaps from DelayedDataframes or chipseq lanes.

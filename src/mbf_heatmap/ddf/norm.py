@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 
+
 class NormStrategy:
     pass
 
@@ -16,6 +17,7 @@ class Unchanged(NormStrategy):
     def deps(self):
         return []
 
+
 class Log2(NormStrategy):
     """straight pass through"""
 
@@ -26,4 +28,3 @@ class Log2(NormStrategy):
 
     def deps(self):
         return []
-

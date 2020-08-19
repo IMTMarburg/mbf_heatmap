@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 from mbf_genomics import DelayedDataFrame
 from mbf_qualitycontrol.testing import assert_image_equal
-from mbf_heatmap import HeatmapPlot, heatmap_order, heatmap_norm
+from mbf_heatmap.ddf import HeatmapPlot, order as heatmap_order, norm as heatmap_norm
 
 from pypipegraph.testing import run_pipegraph
 
