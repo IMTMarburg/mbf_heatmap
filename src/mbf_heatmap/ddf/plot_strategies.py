@@ -28,7 +28,7 @@ class Plot_Matplotlib:
         else:
             color_scale = plot_options["color_scale"]
         fig = plt.figure(figsize=(plot_width, plot_height))
-        title = plot_options.get("title", '')
+        title = plot_options.get("title", "")
         if title:
             plt.suptitle(title)
         for ii, column in enumerate(df.columns):
@@ -64,3 +64,51 @@ class Plot_Matplotlib:
 
     def render(self, output_filename, p):
         p.savefig(output_filename, bbox_inches="tight")
+
+    def get_parameters(self, plot_options, lanes_to_draw):
+        cs = plot_options.get("color_scale", False)
+        color_scale_string = color_scale_to_string(cs, lanes_to_draw)
+        return (
+            plot_options.get("height", None),
+            plot_options.get("max_width", 4),
+            color_scale_string,
+            plot_options.get("hide_legend", False),
+            plot_options.get("title", None),
+        )
+
+    def get_dependencies(self, heatmapplot, plot_options):
+        return None
+        # res = []
+        # cs = plot_options.get("color_scale", False)
+        # if hasattr(cs, '__call__'):
+        #    res.append(ppg.FunctionInvariant(heatmapplot.output_filename + '_color_scale', cs))
+        # return res
+
+
+def color_scale_to_string(cs, lanes_to_draw):
+    """Convert a matplotlib color scale into a string for parameter recording"""
+    if hasattr(cs, "name"):
+        color_scale_string = cs.name  # matplotlib colors scales have no useful __str__
+    elif isinstance(cs, dict):
+        if set(cs.keys()) != set([x.name for x in lanes_to_draw]):
+            raise ValueError(
+                "Using dict color_scale, but did not provide values for all lanes"
+            )
+        color_scale_string = ""
+        for x in cs:
+            color_scale_string += x + "==="
+        if hasattr(cs[x], "name"):
+            color_scale_string += cs[x].name
+        else:
+            color_scale_string += str(cs[x])
+        color_scale_string += ";;;"
+    elif hasattr(cs, "__call__"):
+        color_scale_string = "function"
+    elif cs is False:
+        color_scale_string = "default"
+    else:
+        raise ValueError(
+            "Color option was not a matplotlib.pyplot.cm. class or a dict of such. Was %s:"
+            % cs
+        )
+    return color_scale_string

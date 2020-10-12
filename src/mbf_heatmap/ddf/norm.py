@@ -2,11 +2,11 @@ import pandas as pd
 import numpy as np
 
 
-class NormStrategy:
+class _NormStrategy:
     pass
 
 
-class Unchanged(NormStrategy):
+class Unchanged(_NormStrategy):
     """straight pass through"""
 
     name = "Unchanged"
@@ -18,7 +18,7 @@ class Unchanged(NormStrategy):
         return []
 
 
-class Log2(NormStrategy):
+class Log2(_NormStrategy):
     """straight pass through"""
 
     name = "Unchanged"

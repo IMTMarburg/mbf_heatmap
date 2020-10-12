@@ -18,7 +18,7 @@ You need to decide and pass in appropriate strategies:
 """
 import pypipegraph as ppg
 from mbf_genomics.util import parse_a_or_c
-from .. import plot_strategies
+from . import plot_strategies
 from . import norm, order
 from mbf_genomics import DelayedDataFrame
 from mbf_genomics.util import freeze
@@ -30,7 +30,7 @@ class HeatmapPlot:
         ddf: DelayedDataFrame,
         columns,
         output_filename,
-        normalization_strategy: norm.NormStrategy,
+        normalization_strategy: norm._NormStrategy,
         order_strategy: order.OrderStrategy,
         names=None,
         plot_options={},
@@ -49,14 +49,14 @@ class HeatmapPlot:
         self.ddf = ddf
         self.columns = [parse_a_or_c(x) for x in columns]
         self.output_filename = ddf.pathify(output_filename)
-        if not isinstance(normalization_strategy, norm.NormStrategy):
+        if not isinstance(normalization_strategy, norm._NormStrategy):
             raise ValueError(
-                "normalization_strategy must be a heatmap.norm.NormStrategy descendend"
+                "normalization_strategy must be a heatmap.norm._NormStrategy descendend"
             )
         self.normalization_strategy = normalization_strategy
         if not isinstance(order_strategy, order.OrderStrategy):
             raise ValueError(
-                "order_strategy must be a heatmap.norm.NormStrategy descendend"
+                "order_strategy must be a heatmap.norm._NormStrategy descendend"
             )
 
         self.order_strategy = order_strategy
