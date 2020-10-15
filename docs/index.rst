@@ -5,7 +5,7 @@ mbf_heatmap
 Welcome to **mbf_heatmap**, which 
 handles heatmap plotting.
 
-It's source lives at `github <https://github.com/TyberiusPrime/mbf_heatmap>`_.
+It's source lives at `github <https://github.com/IMTMarburg/mbf_heatmap>`_.
 
 Quickstart
 ==========

@@ -5,7 +5,7 @@ import pandas as pd
 def _apply_tpm(lanes_to_draw, raw_data):
     """Convert read counts in raw_data into TPMs - in situ"""
     for lane in lanes_to_draw:
-        norm_factor = 1e6 / lane.get_aligned_read_count()
+        norm_factor = 1e6 / lane.mapped_reads()
         raw_data[lane.name] = raw_data[lane.name] * norm_factor
 
 
@@ -31,7 +31,7 @@ class NormLaneTPM(_Normalization):
     name = "Norm_Lane_TPM"
 
     def get_dependencies(self, lanes_to_draw):
-        return [x.count_aligned_reads() for x in lanes_to_draw]
+        return [x.load() for x in lanes_to_draw]
 
     def calc(self, lanes_to_draw, raw_data):
         _apply_tpm(lanes_to_draw, raw_data)
@@ -46,7 +46,7 @@ class NormLaneTPMInterpolate(_Normalization):
         self.samples_per_region = samples_per_region
 
     def get_dependencies(self, lanes_to_draw):
-        return [x.count_aligned_reads() for x in lanes_to_draw]
+        return [x.load() for x in lanes_to_draw]
 
     def calc(self, lanes_to_draw, raw_data):
         for lane in lanes_to_draw:
@@ -75,7 +75,7 @@ class NormLaneMax(_Normalization):
         self.name = "NormLaneMax"
 
     def get_dependencies(self, lanes_to_draw):
-        return [x.count_aligned_reads() for x in lanes_to_draw]
+        return [x.load() for x in lanes_to_draw]
 
     def calc(self, lanes_to_draw, raw_data):
         for lane in lanes_to_draw:
@@ -107,7 +107,7 @@ class NormPerPeak(_Normalization):
     name = "Norm_PerPeak"
 
     def get_dependencies(self, lanes_to_draw):
-        return [x.count_aligned_reads() for x in lanes_to_draw]
+        return [x.load() for x in lanes_to_draw]
 
     def calc(self, lanes_to_draw, raw_data):
         for lane in lanes_to_draw:
@@ -156,7 +156,7 @@ class NormPerRowTPM(_Normalization):
     name = "NormPerRowTPM"
 
     def get_dependencies(self, lanes_to_draw):
-        return [x.count_aligned_reads() for x in lanes_to_draw]
+        return [x.load() for x in lanes_to_draw]
 
     def calc(self, lanes_to_draw, raw_data):
         _apply_tpm(lanes_to_draw, raw_data)
@@ -197,7 +197,7 @@ class NormLaneQuantile(_Normalization):
         return raw_data
 
     def get_dependencies(self, lanes_to_draw):
-        return [x.count_aligned_reads() for x in lanes_to_draw]
+        return [x.load() for x in lanes_to_draw]
 
 
 class NormLaneQuantileIthLane(_Normalization):
@@ -225,4 +225,4 @@ class NormLaneQuantileIthLane(_Normalization):
         return raw_data
 
     def get_dependencies(self, lanes_to_draw):
-        return [x.count_aligned_reads() for x in lanes_to_draw]
+        return [x.load() for x in lanes_to_draw]

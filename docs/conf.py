@@ -56,7 +56,6 @@ try:
 except Exception as e:
     print("Running `sphinx-apidoc` failed!\n{}".format(e))
 
-import sphinx_bootstrap_theme
 # -- General configuration -----------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -141,7 +140,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'alabaster'
+html_theme = 'default'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -150,10 +149,6 @@ html_theme_options = {
     'sidebar_width': '300px',
     'page_width': '1200px'
 }
-
-
-
-html_theme = 'bootstrap'
 
 html_static_path = ["docs/_static"]
 
@@ -303,7 +298,7 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
   return skip or excl
 
 def setup(app):
-    app.add_stylesheet("my-styles.css") # also can be a full URL
+    app.add_css_file("my-styles.css") # also can be a full URL
     app.connect('autodoc-skip-member', autodoc_skip_member)
     github_doc_root = "https://github.com/TyberiusPrime/mbf_heatmap"
     app.add_config_value('recommonmark_config', {
